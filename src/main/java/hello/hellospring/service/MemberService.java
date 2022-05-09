@@ -34,12 +34,13 @@ public class MemberService {
 
             throw new IllegalStateException("이미 존재하는 회원입니다.");
         });*/
+        long start = System.currentTimeMillis();
+            //findByName이 Optional 이므로 이렇게.
+            validateDuplicateMember(member); //중복 회원 검증
+            memberRepository.save(member); // 함수 추출출
+            return member.getId();
 
 
-        //findByName이 Optional 이므로 이렇게.
-        validateDuplicateMember(member); //중복 회원 검증
-        memberRepository.save(member); // 함수 추출출
-        return member.getId();
     }
 
     private void validateDuplicateMember(Member member) {
@@ -54,7 +55,8 @@ public class MemberService {
      * 전체 회원 조회
      */
     public List<Member> findmembers(){
-        return memberRepository.findAll();
+        long start = System.currentTimeMillis();
+            return memberRepository.findAll();
     }
 
     public Optional<Member> findOne(Long memberId){
